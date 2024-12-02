@@ -1,3 +1,4 @@
+import { getStatusBarHeight, TopBar } from './common/Common';
 import { PageHome } from './page_home/PageHome';
 import { PageProject } from './page_project/PageProject';
 import { PageSquare } from './page_square/PageSquare';
@@ -7,10 +8,21 @@ import { PageWx } from './page_wx/PageWx';
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State
+  private statusBarHeight: number = 0
+
+  aboutToAppear(): void {
+    getStatusBarHeight((h) => {
+      this.statusBarHeight = h
+    })
+  }
 
   build() {
     Column() {
+      TopBar({
+        title: "首页", leftIcon: $r('app.media.ic_public_view_list_filled'), onLeftClick: () => {
+        }
+      })
       Tabs() {
         TabContent() {
           PageHome()
@@ -31,9 +43,10 @@ struct Index {
         TabContent() {
           PageProject()
         }.tabBar("项目")
-      }.barPosition(BarPosition.End)
+      }.barPosition(BarPosition.End).margin({ bottom: this.statusBarHeight * 2 })
     }
     .height('100%')
     .width('100%')
+    .padding({ top: this.statusBarHeight })
   }
 }

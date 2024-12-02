@@ -3,6 +3,21 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },{
+      "name": "accent_color",
+      "value": "#FF2875F3"
+    },
+    {
+      "name": "primary_color",
+      "value": "#FF6CA5FD"
+    },
+    {
+      "name": "text_main",
+      "value": "#0D0D0D"
+    },
+    {
+      "name": "text_sub",
+      "value": "#999999"
     }
   ]
 }
