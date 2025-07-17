@@ -4,7 +4,6 @@ import { BusinessError } from '@kit.BasicServicesKit'
 import { HomeBanner } from '../../net/module/HomeBanner'
 import { BaseModule } from '../../net/BaseModule'
 import { HomeArticle, HomeArticleResp } from '../../net/module/HomeArticle'
-import { faceDetector } from '@kit.CoreVisionKit'
 
 @ObservedV2
 export class PageHomeVM {
@@ -65,12 +64,4 @@ export class PageHomeVM {
       }
     })
   }
-
-  // mockArticle() {
-  //   this.isLoading = true
-  //   setTimeout(()=>{
-  //     this.isLoading = false
-  //     this.homeArticles = this.homeArticles.concat(this.homeArticles)
-  //   },1000)
-  // }
 }

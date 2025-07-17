@@ -7,9 +7,14 @@ import { PageWx } from './page_wx/PageWx';
 
 @Entry
 @Component
+@Preview
 struct Index {
   @State
   private statusBarHeight: number = 0
+  @State
+  private index: number = 0
+  @State
+  private titles:string[] = ["首页", "广场", "公众号", "体系", "项目"]
 
   aboutToAppear(): void {
     getStatusBarHeight((h) => {
@@ -20,7 +25,7 @@ struct Index {
   build() {
     Column() {
       TopBar({
-        title: "首页", leftIcon: $r('app.media.ic_public_view_list_filled'), onLeftClick: () => {
+        title: this.titles[this.index], leftIcon: $r('app.media.ic_public_view_list_filled'), onLeftClick: () => {
         }
       })
       Tabs() {
@@ -43,7 +48,14 @@ struct Index {
         TabContent() {
           PageProject()
         }.tabBar("项目")
-      }.barPosition(BarPosition.End).margin({ bottom: this.statusBarHeight * 2 })
+      }
+      .barPosition(BarPosition.End)
+      .margin({ bottom: this.statusBarHeight * 2 })
+      .scrollable(false)
+      .onChange((index: number) => {
+        this.index = index
+        console.log("onchange",`title=${this.titles[this.index]}`);
+      })
     }
     .height('100%')
     .width('100%')

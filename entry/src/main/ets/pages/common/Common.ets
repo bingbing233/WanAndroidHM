@@ -3,6 +3,7 @@ import { promptAction, router, window } from "@kit.ArkUI"
 @Preview
 @Component
 export struct TopBar {
+  @Prop
   title: string = ""
   leftIcon: Resource = $r('app.media.ic_public_back')
   onLeftClick = () => {
@@ -102,7 +103,10 @@ export function fullScreen(windowStage: window.WindowStage) {
   // 状态栏沉浸
   let mainWindow = windowStage.getMainWindowSync()
   mainWindow.setSystemBarEnable(['status'])
-  mainWindow.setWindowSystemBarProperties({ statusBarColor: "#FF2875F3" })
+  mainWindow.setWindowSystemBarProperties({
+    statusBarColor: "#FF2875F3",
+    isStatusBarLightIcon: true
+  })
   mainWindow.setWindowLayoutFullScreen(true)
 }
 
