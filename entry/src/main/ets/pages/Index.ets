@@ -1,13 +1,13 @@
+import { changeStatusBarColor } from '../utils/CommonUtils';
 import { getStatusBarHeight, TopBar } from './common/Common';
 import { PageHome } from './page_home/PageHome';
-import { PageProject } from './page_project/PageProject';
+import { PageMine } from './page_mine/PageMine';
 import { PageSquare } from './page_square/PageSquare';
 import { PageStruct } from './page_struct/PageStruct';
 import { PageWx } from './page_wx/PageWx';
 
 @Entry
 @Component
-@Preview
 struct Index {
   @State
   private statusBarHeight: number = 0
@@ -20,6 +20,10 @@ struct Index {
     getStatusBarHeight((h) => {
       this.statusBarHeight = h
     })
+  }
+
+  onPageShow(): void {
+    changeStatusBarColor(getContext(this),"#FF2875F3","#ffffff")
   }
 
   build() {
@@ -46,8 +50,8 @@ struct Index {
         }.tabBar("体系")
 
         TabContent() {
-          PageProject()
-        }.tabBar("项目")
+          PageMine()
+        }.tabBar("我的")
       }
       .barPosition(BarPosition.End)
       .margin({ bottom: this.statusBarHeight * 2 })
