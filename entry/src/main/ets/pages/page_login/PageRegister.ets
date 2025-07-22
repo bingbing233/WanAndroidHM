@@ -1,6 +1,7 @@
 import prompt from '@ohos.prompt';
 import { changeStatusBarColor } from '../../utils/CommonUtils';
 import { promptAction, router } from '@kit.ArkUI';
+import { LoginVm } from './LoginVm';
 
 @Entry
 @Component
@@ -12,8 +13,10 @@ struct PageRegister {
   @State isConfirmPasswordVisible: boolean = false;
   @State isProcessing: boolean = false;
 
+  vm:LoginVm = new LoginVm()
+
   onPageShow(): void {
-    changeStatusBarColor(getContext(this), "#F5F5F5", "#000000")
+    changeStatusBarColor(getContext(this), "#FFFFFF", "#000000")
   }
 
   build() {
@@ -52,7 +55,7 @@ struct PageRegister {
           .placeholderFont({ size: 16 })
           .fontColor('#DD000000')
           .fontSize(16)
-          .backgroundColor('#FFFFFF')
+          .backgroundColor('#F5F5F5')
           .borderRadius(4)
           .padding({ left: 16, right: 16 })
           .onChange((value: string) => {
@@ -69,7 +72,7 @@ struct PageRegister {
               .placeholderFont({ size: 16 })
               .fontColor('#DD000000')
               .fontSize(16)
-              .backgroundColor('#FFFFFF')
+              .backgroundColor('#F5F5F5')
               .onChange((value: string) => {
                 this.password = value;
               })
@@ -77,7 +80,7 @@ struct PageRegister {
           }
           .width('100%')
           .height(56)
-          .backgroundColor('#FFFFFF')
+          .backgroundColor('#F5F5F5')
           .borderRadius(4)
         }
         .width('90%')
@@ -93,14 +96,14 @@ struct PageRegister {
               .placeholderFont({ size: 16 })
               .fontColor('#DD000000')
               .fontSize(16)
-              .backgroundColor('#FFFFFF')
+              .backgroundColor('#F5F5F5')
               .onChange((value: string) => {
                 this.confirmPassword = value;
               })
           }
           .width('100%')
           .height(56)
-          .backgroundColor('#FFFFFF')
+          .backgroundColor('#F5F5F5')
           .borderRadius(4)
         }
         .width('90%')
@@ -118,7 +121,7 @@ struct PageRegister {
           .opacity(this.isFormValid() ? 1 : 0.5)
           .enabled(this.isFormValid() && !this.isProcessing)
           .onClick(() => {
-            this.handleRegister();
+            this.vm.register(this.username,this.password,this.confirmPassword)
           })
 
         // 已有账号，去登录
@@ -145,7 +148,7 @@ struct PageRegister {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F5F5')
+    .backgroundColor(Color.White)
   }
 
   // 表单验证
@@ -155,21 +158,5 @@ struct PageRegister {
       this.password === this.confirmPassword;
   }
 
-  // 注册处理
-  private handleRegister() {
-    this.isProcessing = true;
-    prompt.showToast({ message: '注册中...', duration: 1000 });
-
-    // 模拟注册请求
-    setTimeout(() => {
-      this.isProcessing = false;
-      if (Math.random() > 0.3) {
-        prompt.showToast({ message: '注册成功' });
-        // 注册成功后的跳转逻辑
-      } else {
-        prompt.showToast({ message: '注册失败，请重试' });
-      }
-    }, 2000);
-  }
 }
 

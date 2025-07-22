@@ -1,5 +1,6 @@
 import router from '@ohos.router';
 import { changeStatusBarColor } from '../../utils/CommonUtils';
+import { LoginVm } from './LoginVm';
 
 @Entry
 @Component
@@ -9,7 +10,7 @@ export struct PageLogin {
   @State isLoading: boolean = false;
   @State showPassword: boolean = false;
   @State errorMessage: string = '';
-
+  vm = new LoginVm()
   onPageShow(): void {
     changeStatusBarColor(getContext(this), "#ffffff", "#000000")
   }
@@ -93,7 +94,9 @@ export struct PageLogin {
             .borderRadius(8)
             .caretColor('#1976D2')
             .fontSize(16)
-
+            .onChange((value:string)=>{
+              this.password = value.trim()
+            })
         }
         .width('90%')
         .margin({ bottom: 10 })
@@ -117,7 +120,7 @@ export struct PageLogin {
           .borderRadius(8)
           .enabled(!this.isLoading)
           .onClick(() => {
-            this.handleLogin();
+            this.vm.login(this.username,this.password)
           })
           .margin({ bottom: 20 })
 
@@ -233,24 +236,6 @@ export struct PageLogin {
       right:20
     })
     .alignItems(HorizontalAlign.Center)
-  }
-
-  // 处理登录逻辑
-  handleLogin() {
-    if (!this.username || !this.password) {
-      this.errorMessage = '用户名和密码不能为空';
-      return;
-    }
-
-    // 模拟登录过程
-    this.isLoading = true;
-    setTimeout(() => {
-      // 模拟登录成功
-      this.isLoading = false;
-      router.pushUrl({
-        url: 'pages/Index'
-      });
-    }, 1500);
   }
 }
 
